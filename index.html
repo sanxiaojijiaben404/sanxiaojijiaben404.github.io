@@ -1,76 +1,386 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>html practice</title>
-</head>
-<style>
-    
-        *{
-            font-family: kaiti;
+    <title>江湖问名 - 汝乃何许人也</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "楷体", "STKaiti", "SimSun", serif;
         }
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #bed7f5;
-            margin: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
+            line-height: 1.6;
         }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 装饰元素 - 增加江湖氛围 */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid rgba(46, 125, 50, 0.1);
+            border-radius: 25px;
+            pointer-events: none;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #34a853;
+            position: relative;
+        }
+        
+        .header::after {
+            content: "❖";
+            color: #34a853;
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            padding: 0 10px;
+        }
+        
         h1 {
-            color: #34a853; /* 绿色标题 */
+            color: #2e7d32;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.1em;
         }
+        
         h2 {
-            color: #fbbc05; /* 黄色副标题 */
+            color: #f57c00;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: normal;
+            letter-spacing: 0.05em;
         }
+        
+        .form-section {
+            background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #4caf50;
+            transition: transform 0.3s ease;
+        }
+        
+        .form-section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.1);
+        }
+        
         form {
-            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
         }
+        
         input[type="text"] {
-            padding: 8px;
-            border: 2px solid #ccc;
-            border-radius: 4px;
+            flex: 1;
+            min-width: 200px;
+            padding: 14px 20px;
+            border: 2px solid #81c784;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
         }
+        
+        input[type="text"]::placeholder {
+            color: #a5d6a7;
+            font-style: italic;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+            background: #fff;
+        }
+        
         input[type="submit"] {
-            background-color: #4285f4; /* 蓝色按钮 */
+            background: linear-gradient(135deg, #4285f4, #34a853);
             color: white;
-            padding: 8px 16px;
+            padding: 14px 30px;
             border: none;
-            border-radius: 4px;
+            border-radius: 25px;
             cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+            white-space: nowrap;
         }
+        
         input[type="submit"]:hover {
-            background-color: #357ae8; /* 按钮悬停效果 */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+            background: linear-gradient(135deg, #357ae8, #2e7d32);
         }
-img { 
-            border: 3px solid #4285f4; /* 蓝色边框 */
-            border-radius: 10px; /* 圆角效果 */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* 阴影增加层次感 */
-            transition: all 0.3s; /* 过渡动画，hover更丝滑 */
+        
+        input[type="submit"]:active {
+            transform: translateY(0);
         }
+        
+        .tips {
+            background: #fff3e0;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #ff9800;
+            font-style: italic;
+            transition: all 0.3s ease;
+        }
+        
+        .tips:hover {
+            box-shadow: 0 3px 10px rgba(255, 152, 0, 0.1);
+        }
+        
+        .image-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .image-container {
+            display: inline-block;
+            margin: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        img {
+            border: 4px solid #4285f4;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s ease;
+            max-width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
         img:hover {
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3); /* 鼠标悬停时增加阴影效果 */
-            transform: scale(1.05); /* 鼠标悬停时放大图片 */
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            transform: scale(1.03) rotate(1deg);
+            border-color: #ea4335;
         }
-</style>
+        
+        .button-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #ea4335, #fbbc05);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(234, 67, 53, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.4);
+            background: linear-gradient(135deg, #d33426, #e6a800);
+        }
+        
+        button:active {
+            transform: translateY(-1px);
+        }
+        
+        #text {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #fce4ec, #f3e5f5);
+            border-radius: 10px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+            border: 2px dashed #9c27b0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: "❦";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            padding: 0 10px;
+            color: #ccc;
+        }
+        
+        /* 响应式设计优化 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .form-section {
+                padding: 20px 15px;
+            }
+            
+            input[type="submit"] {
+                width: 100%;
+                padding: 14px;
+            }
+            
+            .image-container {
+                margin: 10px 0;
+            }
+            
+            button {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
 <body>
-    <h1>汝乃何许人也</h1>
-    <h2>报上名来</h2>
-    <form name="input" action="page2.html" method="get">
-名字: <input type="text" name="user">
-<input type="submit" value="Submit">
-    </form>
-    <p>其实你不写我也无可奈何，因为我还不会做提交之后跳转页面</p>
-    <p>看个照片</p>
-    <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/20251027231911_1.jpg" alt="图片加载失败">
-    <p>哎呀，太小了，我都看不清，放大一点吧</p>
-    <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/20251027231911_1.jpg" alt="图片加载失败" width="1200" height="600">
-    <button onclick="changeText()">点击我</button>
-    <div id="text">等待点击...</div>
+    <div class="container">
+        <div class="header">
+            <h1>汝乃何许人也</h1>
+            <h2>报上名来</h2>
+        </div>
+        
+        <div class="form-section">
+            <form name="input" action="html_form_action.php" method="get">
+                <input type="text" name="user" placeholder="在此输入尊姓大名...">
+                <input type="submit" value="提交名帖">
+            </form>
+        </div>
+        
+        <div class="tips">
+            <p>📜 其实你不写我也无可奈何，因为我还不会做提交之后跳转页面
+                现在会啦，你可以试试提交名帖按钮~
+            </p>
+        </div>
+        
+        <div class="image-section">
+            <p>🖼️ 看个照片</p>
+            <div class="image-container">
+                <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/20251027231911_1.jpg" alt="江湖风景" width="400" loading="lazy">
+            </div>
+            <p>🔍 哎呀，太小了，我都看不清，放大一点吧</p>
+            <div class="image-container">
+                <img src="https://raw.githubusercontent.com/sanxiaojijiaben404/picture/main/20251027231911_1.jpg" alt="江湖风景（大图）" width="800" loading="lazy">
+            </div>
+        </div>
+        
+        <div class="button-section">
+            <button onclick="changeText()">点击我试试</button>
+            <div id="text">等待点击中... ⌛</div>
+        </div>
+        
+        <div class="tips">
+            <p>感谢菜鸟教程，哔哩哔哩，谷歌，deepseek，豆包，w3school 在线教程的大力支持！
+            特别鸣谢vscode，在我打出一个尖括号时就能“猜你所想”，特别好用啊特别好用，我不会的它都会。</p>
+        </div>
+        
+        <div class="footer">
+            <p>✨ 江湖问名 · 有缘相见 ✨</p>
+        </div>
+    </div>
+
     <script>
         function changeText() {
             const textElement = document.getElementById('text');
-            textElement.textContent = "按钮被点击啦！没想到吧，仍然不是跳转页面~";
-            textElement.style.color = "#ea4335";
+            // 添加过渡动画类
+            textElement.classList.add('changing');
+            
+            // 先隐藏文字
+            textElement.style.opacity = "0";
+            textElement.style.transform = "scale(0.9)";
+            
+            // 延迟更新内容，等待淡出动画完成
+            setTimeout(() => {
+                textElement.textContent = "🎉 按钮被点击啦！没想到吧，仍然不是跳转页面~";
+                textElement.style.color = "#d33426";
+                textElement.style.background = "linear-gradient(135deg, #e8f5e9, #f1f8e9)";
+                textElement.style.border = "2px solid #4caf50";
+                
+                // 显示新内容
+                textElement.style.opacity = "1";
+                textElement.style.transform = "scale(1.05)";
+                
+                // 恢复正常大小
+                setTimeout(() => {
+                    textElement.style.transform = "scale(1)";
+                }, 300);
+            }, 300);
         }
+
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.container');
+            container.style.opacity = "0";
+            container.style.transform = "translateY(20px)";
+            container.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+            
+            setTimeout(() => {
+                container.style.opacity = "1";
+                container.style.transform = "translateY(0)";
+            }, 100);
+        });
     </script>
 </body>
 </html>
